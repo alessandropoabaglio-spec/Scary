@@ -75,17 +75,31 @@ const stages=[
 {title:'La voce nel fogliame',label:'REPERTO 04 · NASTRO',story:'Il pianto arriva da lontano. Quando vi fermate, anche il pianto smette. Quando ripartite, riprende.',clue:'Nel foglio trovato a terra mancano tre lettere. Il testo dice: «NON GUARDARE ___TRO». Completa la parola.',answer:'DIETRO',hint:'MESSAGGIO INCOMPLETO · UNA PAROLA',sound:'cry',image:'assets/images/forest.svg'},
 {title:'L’ultima prova',label:'REPERTO 05 · USCITA',story:'Il file finale si chiama USCITA. La voce dice: «Se stai ascoltando, non seguire la luce rossa. Non sono io ad averti chiamato».',clue:'Il comando finale è breve. Quello che dovresti fare quando qualcosa non è sicuro: una sola parola.',answer:'FERMATI',hint:'PROTOCOLLO DI SICUREZZA · UNA PAROLA',sound:'scream',image:'assets/images/face.svg'}
 ];
-let index=0,threat=0,team='',audioUnlocked=false,scareBusy=false;
+let index=0,threat=0,team='',audioUnlocked=false,scareBusy=false,ambientTimer=null;
 function show(id){['home','safety','setup','game','ending'].forEach(s=>$(s).classList.toggle('hidden',s!==id))}
 function play(kind,loop=false){const a=$('audio');a.pause();a.src=files[kind]||files.steps;a.loop=loop;a.currentTime=0;a.volume=.82;a.play().catch(()=>{$('feedback').textContent='Tocca “Ascolta il nastro” per attivare l’audio sul telefono.'})}
 function stopAudio(){$('audio').pause();$('audio').currentTime=0}
+function scheduleDisturbance(){
+ if(ambientTimer)clearTimeout(ambientTimer);
+ const wait=24000+Math.random()*36000;
+ ambientTimer=setTimeout(()=>{
+  if(!$('game').classList.contains('hidden')&&!scareBusy){
+   const choices=threat<2?['steps','door','cry']:['door','cry','scream'];
+   const kind=choices[Math.floor(Math.random()*choices.length)];
+   play(kind);
+   $('signal').textContent='● RUMORE NON IDENTIFICATO';
+   setTimeout(()=>{if(!$('game').classList.contains('hidden'))$('signal').textContent=threat>2?'● SEGNALE INSTABILE':'● SEGNALE DEBOLE'},5000);
+  }
+  scheduleDisturbance();
+ },wait);
+}
 function draw(){const s=stages[index];$('stageLabel').textContent='REPERTO '+String(index+1).padStart(2,'0')+' / 05';$('threatLabel').textContent=['PRESENZA: LONTANA','PRESENZA: NEL BOSCO','PRESENZA: PIÙ VICINA','PRESENZA: VICINISSIMA','PRESENZA: DIETRO DI VOI'][threat];$('threatMeter').style.width=(threat*25)+'%';$('scene').style.backgroundImage='url("'+s.image+'")';$('scene').classList.toggle('near',threat>=2);$('objectLabel').textContent=s.label;$('stageTitle').textContent=s.title;$('story').textContent=s.story;$('clue').textContent=s.clue;$('answer').value='';$('feedback').textContent='';$('progress').innerHTML=stages.map((_,i)=>'<span class="'+(i<index?'done':'')+'"></span>').join('');$('signal').textContent=threat>2?'● SEGNALE INSTABILE':'● SEGNALE DEBOLE'}
 function jumpscare(){if(scareBusy)return;scareBusy=true;stopAudio();$('intrusionImage').src='assets/images/face.svg';$('intrusionWord').textContent=['NON VOLTARTI','TI HA TROVATO','È TROPPO VICINO'][Math.floor(Math.random()*3)];$('intrusion').classList.remove('hidden');play('scream');if(navigator.vibrate)navigator.vibrate([100,40,180,35,260]);setTimeout(()=>{$('intrusion').classList.add('hidden');stopAudio();scareBusy=false},1050)}
 function success(){threat=Math.min(4,threat+1);stopAudio();if(index===2)play('cry');else if(index===3)play('door');$('feedback').textContent='Il reperto è stato registrato. Ma qualcosa si è avvicinato.';if(index===4){setTimeout(()=>{stopAudio();show('ending');$('endStory').textContent=team+', il registro è completo. Il sentiero d’uscita è quello già controllato prima del gioco. Non seguire mai luci o suoni fuori dal percorso.';play('steps')},1100);return}index++;setTimeout(()=>{if(index===2)play('steps');draw()},1500);if(index>=3)setTimeout(jumpscare,900)}
-$('start').onclick=()=>show('safety');$('safetyOpen').onclick=()=>show('safety');$('safetyBack').onclick=()=>show('home');$('safetyAccept').onclick=()=>show('setup');$('begin').onclick=()=>{team=$('teamName').value.trim()||'SQUADRA SENZA NOME';audioUnlocked=true;show('game');draw();play('steps')};
+$('start').onclick=()=>show('safety');$('safetyOpen').onclick=()=>show('safety');$('safetyBack').onclick=()=>show('home');$('safetyAccept').onclick=()=>show('setup');$('begin').onclick=()=>{team=$('teamName').value.trim()||'SQUADRA SENZA NOME';audioUnlocked=true;show('game');draw();play('steps');scheduleDisturbance()};
 $('audioTest').onclick=()=>{audioUnlocked=true;play('door')};$('listen').onclick=()=>{audioUnlocked=true;play(stages[index].sound)};$('disturbance').onclick=()=>{audioUnlocked=true;play(index<2?'steps':index<4?'cry':'scream')};
 $('submit').onclick=()=>{const answer=$('answer').value.trim().toLocaleUpperCase('it-IT').replace(/\s+/g,'');if(answer===stages[index].answer){success()}else{$('feedback').textContent='Il registratore si ferma. Dal buio arriva un rumore.';play(index<1?'door':'cry');setTimeout(jumpscare,350)}};
-$('answer').addEventListener('keydown',e=>{if(e.key==='Enter')$('submit').click()});$('closeIntrusion').onclick=()=>{$('intrusion').classList.add('hidden');stopAudio();scareBusy=false};$('restart').onclick=()=>{index=0;threat=0;show('home');stopAudio()};
+$('answer').addEventListener('keydown',e=>{if(e.key==='Enter')$('submit').click()});$('closeIntrusion').onclick=()=>{$('intrusion').classList.add('hidden');stopAudio();scareBusy=false};$('restart').onclick=()=>{index=0;threat=0;if(ambientTimer)clearTimeout(ambientTimer);show('home');stopAudio()};
 function aim(e){const x=(e.clientX/innerWidth*100).toFixed(1)+'%',y=(e.clientY/innerHeight*100).toFixed(1)+'%';document.documentElement.style.setProperty('--x',x);document.documentElement.style.setProperty('--y',y)}document.addEventListener('pointermove',aim,{passive:true});document.addEventListener('touchmove',e=>{if(e.touches[0])aim(e.touches[0])},{passive:true});
 </script>
 </body></html>
