@@ -7,8 +7,8 @@
 <style>
 :root{color-scheme:dark;--x:50%;--y:55%;--red:#a10f1c;--paper:#d6d1c8;--muted:#8c8b87}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#020403;color:var(--paper);font-family:Arial,Helvetica,sans-serif}body{overflow-x:hidden}
-#forest{position:fixed;inset:0;z-index:0;background:#020403 url('assets/images/forest.svg') center/cover no-repeat;filter:brightness(.33) saturate(.6);transform:scale(1.04);transition:filter 1.5s}
-#forest:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at var(--x) var(--y),transparent 0,rgba(0,0,0,.12) 12%,rgba(0,0,0,.72) 43%,#020403 100%);mix-blend-mode:multiply}
+#forest{position:fixed;inset:0;z-index:0;background:#020403 url('assets/images/opening-forest.jpg') center 42%/cover no-repeat;filter:brightness(.72) saturate(.72);transform:scale(1.04);transition:filter 1.5s}
+#forest:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.12) 30%,rgba(0,0,0,.38) 68%,#020403 100%),radial-gradient(ellipse at var(--x) var(--y),transparent 0,rgba(0,0,0,.06) 12%,rgba(0,0,0,.5) 58%,rgba(0,0,0,.84) 100%);mix-blend-mode:multiply}
 #grain{pointer-events:none;position:fixed;inset:-30%;z-index:4;opacity:.075;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");animation:grain .2s steps(2) infinite}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-1%)}75%{transform:translate(2%,2%)}100%{transform:translate(-1%,-2%)}}
 main{position:relative;z-index:2;min-height:100svh;max-width:720px;margin:auto;padding:env(safe-area-inset-top) 18px calc(28px + env(safe-area-inset-bottom))}
