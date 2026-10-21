@@ -1,43 +1,33 @@
 # SCARY — Non dovevi entrare
 
-Prototipo di escape horror per adulti, progettato per smartphone e pubblicabile gratuitamente con GitHub Pages.
+Escape horror narrativo per smartphone, pensato per un pubblico adulto e pubblicabile con GitHub Pages.
 
-## Cosa include
-- Interfaccia horror responsive, pensata per l'uso notturno.
-- Modalità singola e squadra (la modalità squadra è narrativa, non sincronizza più telefoni).
-- Cinque capitoli con enigmi, progressione, finale e registro tappe.
-- Sintesi vocale italiana tramite il browser, su richiesta.
-- Effetto di disturbo, vibrazione su dispositivi compatibili e suono generato localmente.
-- Apertura diretta di una tappa tramite URL, ad esempio `?tappa=3`.
+## Prototipo attuale
+- Grafica horror cinematografica: nero profondo, rosso, texture disturbate e simboli.
+- Cinque capitoli narrativi con enigmi e finale.
+- Modalità singola e modalità squadra narrativa (non sincronizzata online).
+- Sintesi vocale italiana del browser, su richiesta.
+- Effetto visivo di disturbo, suono sintetico e vibrazione sui dispositivi supportati.
+- Apertura del capitolo tramite URL con parametro `?tappa=1` fino a `?tappa=5`.
 
-## Pubblicare con GitHub Pages
-1. Apri **Settings** della repository.
-2. Seleziona **Pages** nel menu laterale.
-3. In **Build and deployment**, scegli **Deploy from a branch**.
-4. Seleziona il branch **main** e la cartella **/(root)**, poi premi **Save**.
-5. Attendi il completamento della pubblicazione. L'indirizzo del progetto sarà:
-   https://alessandropoabaglio-spec.github.io/Scary/
+## Pubblicazione GitHub Pages
+1. Apri **Settings → Pages** della repository.
+2. In **Build and deployment**, scegli **Deploy from a branch**.
+3. Seleziona branch `main` e cartella `/(root)`, poi **Save**.
+4. Attendi il completamento del deployment.
+5. URL previsto: https://alessandropoabaglio-spec.github.io/Scary/
 
-## Creare i QR code delle tappe
-Crea un QR code per ciascun URL qui sotto usando un generatore QR di tua scelta, poi stampa e posiziona i codici solo lungo un percorso controllato e autorizzato.
-
+## URL per i QR code
 - Tappa 1: https://alessandropoabaglio-spec.github.io/Scary/?tappa=1
 - Tappa 2: https://alessandropoabaglio-spec.github.io/Scary/?tappa=2
 - Tappa 3: https://alessandropoabaglio-spec.github.io/Scary/?tappa=3
 - Tappa 4: https://alessandropoabaglio-spec.github.io/Scary/?tappa=4
 - Tappa 5: https://alessandropoabaglio-spec.github.io/Scary/?tappa=5
 
-I QR aprono il capitolo selezionato dopo l'avvio dell'esperienza; non verificano la posizione fisica e non impediscono di saltare le tappe.
+I QR aprono il capitolo selezionato quando si avvia l'esperienza. Non verificano la posizione GPS né bloccano l'ordine delle tappe.
 
-## Note importanti
-- Questo è un prototipo iniziale, non ancora un gioco multiplayer sincronizzato né un sistema anti-cheat.
-- Il progresso è temporaneo: ricaricando la pagina si può perdere la sessione.
-- La sintesi vocale dipende dalle voci installate nel browser/dispositivo. Gli effetti sonori sono volutamente semplici e non sostituiscono file audio professionali.
-- Per una versione dal vivo, usa esclusivamente luoghi accessibili legalmente e controllati. Fai un sopralluogo di giorno, evita strade trafficate, acqua, cantieri, edifici abbandonati e proprietà private; niente inseguimenti reali o contatto fisico. Ogni partecipante deve poter interrompere in qualsiasi momento.
+## Sicurezza
+Usare esclusivamente luoghi accessibili legalmente e controllati. Fare un sopralluogo di giorno, evitare strade trafficate, cantieri, gallerie, acqua, edifici abbandonati e proprietà private. I partecipanti devono poter interrompere in ogni momento. Non usare il gioco mentre si guida.
 
-## Prossime evoluzioni suggerite
-1. Salvataggio locale della sessione e tappe completate.
-2. QR code grafici stampabili in PDF.
-3. Audio originali e sound design con volume controllato.
-4. Pannello organizzatore per personalizzare tappe, codici e storia.
-5. Modalità GPS opzionale con geofence ampio, solo su percorso sicuro e autorizzato.
+## Limiti attuali
+Questo è un prototipo: la modalità squadra non sincronizza i telefoni, il progresso non è salvato in modo persistente, non ci sono ancora audio professionali, scansione QR in-app o navigazione GPS. La sintesi vocale dipende dalle voci disponibili sul dispositivo.
