@@ -1,1 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1400"><defs><radialGradient id="bg"><stop stop-color="#30302d"/><stop offset=".45" stop-color="#080908"/><stop offset="1" stop-color="#000"/></radialGradient><linearGradient id="skin" x2=".8" y2="1"><stop stop-color="#b6b3a9"/><stop offset=".4" stop-color="#666860"/><stop offset="1" stop-color="#171a17"/></linearGradient><filter id="grain"><feTurbulence baseFrequency=".85" numOctaves="2"/><feColorMatrix values=".35 0 0 0 .1 .35 0 0 0 .1 .35 0 0 0 .1 0 0 0 .16 0"/></filter></defs><rect width="900" height="1400" fill="url(#bg)"/><path d="M210 140Q140 360 170 650L240 1080 420 1330 690 1150 760 690 720 280 560 100z" fill="#010201"/><path d="M260 250Q320 120 510 190Q660 260 650 570L620 870Q580 1050 440 1120Q300 1000 250 790z" fill="url(#skin)"/><path d="M235 230Q350 40 560 180L690 520 610 350 560 300 530 450 470 315 390 420 350 280 270 530z" fill="#050605"/><path d="M280 555Q345 490 410 550L380 600 295 590zM475 550Q550 485 610 535L590 580 490 595z" fill="#080a09"/><path d="M302 558l72 5M500 554l75-8" stroke="#b7b6aa" stroke-width="5" opacity=".6"/><ellipse cx="350" cy="568" rx="12" ry="7" fill="#d8d5ca"/><ellipse cx="550" cy="560" rx="10" ry="6" fill="#c7c5ba"/><path d="M442 560L410 720 460 744" stroke="#333631" stroke-width="17" fill="none"/><path d="M365 850Q450 810 535 845Q505 945 445 930Q390 930 365 850z" fill="#090a09"/><path d="M390 864Q450 890 515 858" stroke="#c0bdb1" stroke-width="5" opacity=".45" fill="none"/><path d="M230 440Q180 670 250 930L320 1130 440 1200 300 990 280 760zM630 300Q720 520 650 800L600 1010 520 1120 600 800z" fill="#050605"/><rect width="900" height="1400" filter="url(#grain)" opacity=".2"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1400">
+<defs>
+ <radialGradient id="night"><stop stop-color="#111410"/><stop offset=".52" stop-color="#030504"/><stop offset="1" stop-color="#000"/></radialGradient>
+ <linearGradient id="veil" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171a17"/><stop offset=".42" stop-color="#050605"/><stop offset=".78" stop-color="#11130f"/><stop offset="1" stop-color="#000"/></linearGradient>
+ <linearGradient id="skin" x1=".2" y1="0" x2=".75" y2="1"><stop stop-color="#77796e"/><stop offset=".28" stop-color="#343831"/><stop offset=".7" stop-color="#111410"/><stop offset="1" stop-color="#000"/></linearGradient>
+ <radialGradient id="eye"><stop stop-color="#f6f1d7"/><stop offset=".12" stop-color="#d8d0a9"/><stop offset=".3" stop-color="#8d271d"/><stop offset="1" stop-color="#050303"/></radialGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="24"/></filter>
+ <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values=".35 0 0 0 0 .35 0 0 0 0 .35 0 0 0 0 0 0 0 .22 0"/></filter>
+</defs>
+<rect width="900" height="1400" fill="url(#night)"/>
+<g opacity=".3" fill="#10130f"><path d="M0 0h115L50 600 140 1400H0zM900 0H790l70 500-100 900h140z"/><path d="M140 0L95 400 160 650 115 930 200 1400H95L40 700 75 280zM770 0l55 350-70 330 85 350-75 370h-65l70-540-45-420z"/></g>
+<ellipse cx="450" cy="690" rx="285" ry="530" fill="#151813" opacity=".35" filter="url(#blur)"/>
+<path d="M190 360Q185 120 400 95Q645 70 700 350L675 930Q650 1170 470 1300Q290 1180 235 960Z" fill="url(#veil)"/>
+<path d="M250 330Q290 180 445 190Q590 195 635 360L605 770Q580 1000 455 1120Q315 1010 275 790Z" fill="url(#skin)" opacity=".84"/>
+<path d="M205 360Q190 175 390 110Q565 95 680 300L620 250 575 320 530 235 480 330 425 230 375 345 330 275 275 420 240 570Z" fill="#010201"/>
+<path d="M260 500Q330 425 405 493L385 555 285 550Z" fill="#020302"/>
+<path d="M475 490Q555 410 625 470L600 545 500 555Z" fill="#020302"/>
+<ellipse cx="340" cy="519" rx="21" ry="11" fill="url(#eye)"/><ellipse cx="550" cy="512" rx="20" ry="11" fill="url(#eye)"/>
+<circle cx="340" cy="519" r="4" fill="#fff8db"/><circle cx="550" cy="512" r="4" fill="#fff8db"/>
+<path d="M440 515L402 700 450 730" stroke="#090b08" stroke-width="22" fill="none"/>
+<path d="M345 825Q445 770 550 825Q520 970 450 990Q375 965 345 825Z" fill="#000"/>
+<path d="M380 850Q450 895 515 845" stroke="#574a42" stroke-width="7" fill="none"/>
+<path d="M250 390Q205 660 275 900L350 1100 430 1190 335 1000 300 770Z M625 340Q690 600 620 860L565 1040 480 1160 570 900 600 700Z" fill="#010201"/>
+<path d="M210 700Q180 850 240 1040M675 600Q710 800 640 1040" fill="none" stroke="#292c25" stroke-width="13" opacity=".25"/>
+<rect width="900" height="1400" filter="url(#noise)" opacity=".5"/>
+<rect width="900" height="1400" fill="url(#night)" opacity=".32"/>
+</svg>
