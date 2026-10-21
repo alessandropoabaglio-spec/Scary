@@ -68,11 +68,11 @@ body:before{z-index:7;opacity:.08}
 @media(prefers-reduced-motion:reduce){.hero:before{animation:none}}
 
 /* NIGHTMARE PASS // image-led horror + clean riddle audio */
-.hero:before{background-image:linear-gradient(0deg,#020203 0%,#020203e8 13%,#02020362 48%,#02020320 76%,#02020399 100%),linear-gradient(90deg,#020203c9,transparent 95%),url('https://media.easy-peasy.ai/7ac95f4d-18a7-42f8-9950-9e0614f24fb1/73ba6e8e-59a7-46aa-b9d4-93ab0dafe2ab.png');background-position:center,center,center 35%;background-size:cover}
+.hero:before{background-image:linear-gradient(0deg,#020203 0%,#020203e8 13%,#02020362 48%,#02020320 76%,#02020399 100%),linear-gradient(90deg,#020203c9,transparent 95%),url('assets/scene-forest.svg');background-position:center,center,center 35%;background-size:cover}
 .sigil{display:none}
 #game .panel:first-child:after{height:clamp(210px,58vw,410px);background-image:linear-gradient(0deg,#050506 0%,#05050600 38%,#0003 100%),var(--chapter-image);filter:contrast(1.28) saturate(.52) brightness(.72);box-shadow:inset 0 0 80px #000}
 .scarer{overflow:hidden;background:#000;isolation:isolate}
-.scarer:before{content:"";position:absolute;inset:-5%;z-index:-1;background-image:linear-gradient(0deg,#000 0%,#0002 60%,#0008 100%),url('https://cdn.pixeldojo.ai/cdn-cgi/image/f%3Dauto%2Cq%3D50%2Cw%3D1920/pixeldojo/generated-images/1733737205828-zmwfjoh5c.png');background-size:cover;background-position:center 40%;filter:contrast(1.4) saturate(.5);animation:faceRush .35s steps(2) 4}
+.scarer:before{content:"";position:absolute;inset:-5%;z-index:-1;background-image:linear-gradient(0deg,#000 0%,#0002 60%,#0008 100%),url('assets/scene-jumpscare.svg');background-size:cover;background-position:center 40%;filter:contrast(1.4) saturate(.5);animation:faceRush .35s steps(2) 4}
 .scarer-inner{width:100%;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,transparent 10%,#000a 85%);padding:25px}
 .face{display:none}
 .scaretext{font-size:clamp(52px,15vw,120px);line-height:.9;color:#fff;text-shadow:0 0 20px #f0002b,5px 5px 0 #920014}
@@ -104,11 +104,11 @@ const chapters=[
 const $=id=>document.getElementById(id);function show(id){["home","setup","safety","game","ending"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
 function start(isTeam){team=isTeam;const qrTappa=Number(new URLSearchParams(location.search).get("tappa"));name=($("player").value.trim()||localStorage.getItem("scary_name")||"OSPITE").slice(0,24);localStorage.setItem("scary_name",name);const saved=JSON.parse(localStorage.getItem("scary_progress")||"null");done=saved&&saved.name===name?saved.done.filter(n=>n>=0&&n<5):[];current=qrTappa>=1&&qrTappa<=5?qrTappa-1:(saved&&saved.name===name?saved.current||0:0);show("game");render()}
 function render(){$("submit").onclick=submit;const c=chapters[current];const chapterImages=[
-"url(https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=85)",
-"url(https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=85)",
-"url(https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=85)",
-"url(https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85)",
-"url(https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=85)"
+"url(assets/scene-forest.svg)",
+"url(assets/scene-corridor.svg)",
+"url(assets/scene-child.svg)",
+"url(assets/scene-ledger.svg)",
+"url(assets/scene-redlight.svg)"
 ];$("game").querySelector(".panel").style.setProperty("--chapter-image",chapterImages[current]);$("chapter").textContent=c.title;$("story").textContent=c.story.replaceAll("tuo nome",name);$("clue").textContent=c.clue;$("answer").value="";$("feedback").textContent="";$("bar").style.width=done.length/5*100+"%";$("stops").innerHTML=chapters.map((s,i)=>'<div class="stop"><span class="num">0'+(i+1)+'</span><div><strong>'+s.name+'</strong><small>'+(done.includes(i)?"FILE DECIFRATO":i===current?"SEGNALE ATTIVO":"SEGNALE NON RAGGIUNTO")+'</small></div><button data-i="'+i+'">APRI</button></div>').join("");$("stops").querySelectorAll("button").forEach(b=>b.onclick=()=>{current=+b.dataset.i;render()})}
 function submit(){const c=chapters[current],a=$("answer").value.trim().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toUpperCase();const accepted=current===4?["ESCI","FUGGI","SCAPPA","VATTENE","ALLONTANATI","VAI VIA"]: [c.answer];if(!accepted.includes(a)){$("feedback").textContent=["La voce si interrompe. Riprova.","Qualcosa bussa dall'altra parte.","La risposta è sbagliata. O forse è il gioco a mentire."][Math.floor(Math.random()*3)];if(Math.random()<.25)scare(false);return}done=[...new Set([...done,current])];localStorage.setItem("scary_progress",JSON.stringify({name,done,current}));$("feedback").textContent=c.reply;$("bar").style.width=done.length/5*100+"%";$("stops").querySelectorAll(".stop").forEach((n,i)=>n.querySelector("small").textContent=done.includes(i)?"FILE DECIFRATO":i===current?"SEGNALE ATTIVO":"SEGNALE NON RAGGIUNTO");if(navigator.vibrate)navigator.vibrate([90,60,170]);$("submit").textContent=done.length===5?"Apri il file finale":"Prossima registrazione";$("submit").onclick=()=>{if(done.length===5){finish();return}current=(current+1)%5;while(done.includes(current)&&done.length<5)current=(current+1)%5;render()}}
 function finish(){localStorage.removeItem("scary_progress");stopAmbience();show("ending");$("endingStory").textContent="Il sistema conferma che tutte le registrazioni sono state recuperate, "+name+".\n\nMa c'è un dettaglio che non torna. Il microfono è rimasto attivo.\n\nLa prossima voce che sentirai… sarà la tua."}
