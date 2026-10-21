@@ -21,9 +21,14 @@ button,input{font:inherit}button{cursor:pointer;color:var(--paper);border:1px so
 .panel{background:linear-gradient(150deg,#111310e8,#050605e8);border:1px solid #ffffff21;box-shadow:0 20px 80px #0009;padding:22px;margin-top:22px;backdrop-filter:blur(8px)}
 .field{margin:18px 0 10px}.field input{width:100%;padding:16px 14px;background:#000a;border:1px solid #ffffff3b;color:#fff;font-size:16px;border-radius:0}.field input::placeholder{color:#77756f}
 .status{display:flex;justify-content:space-between;gap:12px;font:10px monospace;letter-spacing:.13em;color:#a9a49b}.meter{height:2px;background:#ffffff22;margin:12px 0 20px;overflow:hidden}.meter span{display:block;height:100%;width:0;background:#b51c2a;transition:width .5s}
+.home-horror{height:36vh;min-height:240px;max-height:390px;margin:14px 0 20px;background:#030303 url("assets/images/face.svg") center 30%/cover no-repeat;border:1px solid #ffffff25;box-shadow:0 0 45px #000;position:relative;overflow:hidden;animation:homeReveal 3.5s ease-out both}
+.home-horror:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#050505 0%,transparent 65%),radial-gradient(ellipse at center,transparent 25%,#0008 100%)}
+@keyframes homeReveal{from{filter:brightness(.12);transform:scale(.97)}to{filter:brightness(.95);transform:scale(1)}}
 .story{font-size:18px;line-height:1.55;font-weight:600;color:#e0dbd2}.clue{font-size:14px;line-height:1.65;color:#b9b4ac}.hint{font:10px monospace;letter-spacing:.12em;color:#89877f;margin:15px 0 0}
-#scene{height:30vh;min-height:190px;max-height:290px;margin:18px 0 20px;background:#060706 url('assets/images/figure.svg') center 35%/cover no-repeat;position:relative;overflow:hidden;border:1px solid #ffffff1c;filter:brightness(.7) saturate(.6)}
-#scene:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--x) var(--y),transparent 0,rgba(0,0,0,.28) 40%,#030403 100%)}
+#scene{height:42vh;min-height:270px;max-height:440px;margin:18px 0 20px;background:#060706 url('assets/images/figure.svg') center 35%/cover no-repeat;position:relative;overflow:hidden;border:1px solid #ffffff35;filter:brightness(1.12) saturate(.82);box-shadow:0 0 35px #000}
+#scene:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#030403aa 0%,transparent 35%),radial-gradient(circle at var(--x) var(--y),transparent 0,rgba(0,0,0,.08) 65%,#03040355 100%)}
+#scene.reveal{animation:sceneReveal 1.2s ease-out both}
+@keyframes sceneReveal{from{opacity:.35;transform:scale(.97);filter:brightness(.25)}to{opacity:1;transform:scale(1);filter:brightness(1.12)}}
 #scene.near{animation:approach 2.8s ease-in-out infinite alternate}
 @keyframes approach{from{background-size:100% auto;filter:brightness(.45) saturate(.5)}to{background-size:118% auto;filter:brightness(.78) saturate(.7)}}
 .feedback{font-size:13px;line-height:1.5;color:#d38a8e;min-height:20px;margin:10px 0}
@@ -45,7 +50,7 @@ footer{font:9px/1.7 monospace;color:#77756e;border-top:1px solid #ffffff18;paddi
 <main>
 <header class="top"><span>SCARY // FIELD RECORDING 01</span><span class="signal" id="signal">● SEGNALE DEBOLE</span></header>
 <section id="home" class="screen">
-<div class="kicker">Esperienza notturna · bosco · 18+</div><div class="brand">SCARY</div>
+<div class="kicker">Esperienza notturna · bosco · 18+</div><div class="home-horror" role="img" aria-label="Volto inquietante nel buio"></div><div class="brand">SCARY</div>
 <h1 class="headline">Non devi vedere cosa ti segue.<br>Devi solo capire quanto è vicino.</h1>
 <p class="intro">Cinque reperti. Cinque prove fisiche. Una presenza che si avvicina ogni volta che trovi una risposta.</p>
 <div class="actions"><button class="primary" id="start">Inizia dopo aver raggiunto il punto sicuro</button><button id="safetyOpen">Leggi il protocollo di sicurezza</button></div>
@@ -96,7 +101,7 @@ function scheduleDisturbance(){
   scheduleDisturbance();
  },wait);
 }
-function draw(){const s=stages[index];$('stageLabel').textContent='REPERTO '+String(index+1).padStart(2,'0')+' / 05';$('threatLabel').textContent=['PRESENZA: LONTANA','PRESENZA: NEL BOSCO','PRESENZA: PIÙ VICINA','PRESENZA: VICINISSIMA','PRESENZA: DIETRO DI VOI'][threat];$('threatMeter').style.width=(threat*25)+'%';$('scene').style.backgroundImage='url("'+s.image+'")';$('scene').classList.toggle('near',threat>=2);$('objectLabel').textContent=s.label;$('stageTitle').textContent=s.title;$('story').textContent=s.story;$('clue').textContent=s.clue;$('answer').value='';$('feedback').textContent='';$('progress').innerHTML=stages.map((_,i)=>'<span class="'+(i<index?'done':'')+'"></span>').join('');$('signal').textContent=threat>2?'● SEGNALE INSTABILE':'● SEGNALE DEBOLE'}
+function draw(){const s=stages[index];$('stageLabel').textContent='REPERTO '+String(index+1).padStart(2,'0')+' / 05';$('threatLabel').textContent=['PRESENZA: LONTANA','PRESENZA: NEL BOSCO','PRESENZA: PIÙ VICINA','PRESENZA: VICINISSIMA','PRESENZA: DIETRO DI VOI'][threat];$('threatMeter').style.width=(threat*25)+'%';$('scene').style.backgroundImage='url("'+s.image+'")';$('scene').classList.remove('reveal');void $('scene').offsetWidth;$('scene').classList.add('reveal');$('scene').classList.toggle('near',threat>=2);$('objectLabel').textContent=s.label;$('stageTitle').textContent=s.title;$('story').textContent=s.story;$('clue').textContent=s.clue;$('answer').value='';$('feedback').textContent='';$('progress').innerHTML=stages.map((_,i)=>'<span class="'+(i<index?'done':'')+'"></span>').join('');$('signal').textContent=threat>2?'● SEGNALE INSTABILE':'● SEGNALE DEBOLE'}
 function jumpscare(){if(scareBusy)return;scareBusy=true;$('intrusionImage').src='assets/images/face.svg';$('intrusionWord').textContent=['NON VOLTARTI','TI HA TROVATO','È TROPPO VICINO'][Math.floor(Math.random()*3)];$('intrusion').classList.remove('hidden');if(navigator.vibrate)navigator.vibrate([100,40,180,35,260]);setTimeout(()=>{$('intrusion').classList.add('hidden');scareBusy=false},1050)}
 function success(){threat=Math.min(4,threat+1);stopAudio();if(index===2)play('cry');else if(index===3)play('door');$('feedback').textContent='Il reperto è stato registrato. Ma qualcosa si è avvicinato.';if(index===4){setTimeout(()=>{stopAudio();show('ending');$('endStory').textContent=team+', il registro è completo. Il sentiero d’uscita è quello già controllato prima del gioco. Non seguire mai luci o suoni fuori dal percorso.';play('steps')},1100);return}index++;setTimeout(()=>{if(index===2)play('steps');draw()},1500);if(index>=3)setTimeout(jumpscare,900)}
 $('start').onclick=()=>show('safety');$('safetyOpen').onclick=()=>show('safety');$('safetyBack').onclick=()=>show('home');$('safetyAccept').onclick=()=>show('setup');$('begin').onclick=()=>{team=$('teamName').value.trim()||'SQUADRA SENZA NOME';audioUnlocked=true;show('game');startAmbient();draw();play('steps');scheduleDisturbance()};
