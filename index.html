@@ -34,9 +34,9 @@ button,input{font:inherit}button{cursor:pointer;color:var(--paper);border:1px so
 .feedback{font-size:13px;line-height:1.5;color:#d38a8e;min-height:20px;margin:10px 0}
 .progress-list{display:flex;gap:5px;margin-top:14px}.progress-list span{height:3px;flex:1;background:#ffffff20}.progress-list span.done{background:#a5202b}
 #intrusion{position:fixed;inset:0;z-index:20;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#intrusion img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:contrast(1.25) brightness(.78);animation:slam .92s steps(1,end) both}
+#intrusion img{width:min(78vw,520px);height:min(68svh,620px);object-fit:contain;position:relative;inset:auto;filter:contrast(1.08) brightness(.92);animation:slam .92s steps(1,end) both}
 #intrusion:after{content:"";position:absolute;inset:0;background:#000;animation:flash .92s steps(1,end) both}
-@keyframes slam{0%{transform:scale(1.8);filter:brightness(0)}7%{transform:scale(1.02);filter:contrast(2.2) brightness(1.5)}14%{transform:scale(1.12) translateX(-8px)}23%{transform:scale(1.08) translateX(6px);filter:contrast(2.8) brightness(.65)}36%{transform:scale(1.22) translateX(-4px);filter:brightness(1.3)}52%{transform:scale(1.14);filter:contrast(2.4) brightness(.3)}68%{transform:scale(1.3) translateX(4px);filter:brightness(1.4)}100%{transform:scale(1.25);filter:brightness(.4)}}
+@keyframes slam{0%{transform:scale(1.02);filter:brightness(.25)}7%{transform:scale(1);filter:contrast(1.15) brightness(1.05)}14%{transform:scale(1.01) translateX(-2px)}23%{transform:scale(1.005) translateX(2px);filter:contrast(1.2) brightness(.86)}36%{transform:scale(1.02) translateX(-1px);filter:brightness(1.04)}52%{transform:scale(1.01);filter:contrast(1.1) brightness(.76)}68%{transform:scale(1.025) translateX(1px);filter:brightness(1.04)}100%{transform:scale(1.01);filter:brightness(.9)}}
 @keyframes flash{0%,5%,16%,32%,49%,65%{opacity:1}6%,17%,33%,50%,66%,100%{opacity:0}}
 #intrusion .word{z-index:2;position:absolute;bottom:12%;left:8%;right:8%;font:900 clamp(24px,7vw,48px)/.95 Impact,Arial,sans-serif;letter-spacing:.08em;text-align:center;color:#f1e9df;text-shadow:0 0 20px #000}
 #intrusion .exit-scare{position:absolute;z-index:3;top:15px;right:15px;min-height:36px;padding:8px;font-size:9px;opacity:.7}
